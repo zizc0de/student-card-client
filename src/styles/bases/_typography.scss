@@ -1,0 +1,13 @@
+.text-bold{
+	font-family: "proxima-bold";
+}
+
+.text-semi-bold{
+	font-family: "proxima-semiBold";
+}
+
+@each $fontSize in $font-size {
+	.font-#{$fontSize} {
+		font-size: #{$fontSize}px;
+	}	
+}

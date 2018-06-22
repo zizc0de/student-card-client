@@ -1,0 +1,26 @@
+@import "../../styles/bases/_variables.scss";
+
+.auth-container {
+    align-items: center;
+    display: flex;
+    height: 100vh;
+    justify-content: flex-end;
+}
+
+.auth-content {
+    width: 80%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+@media (max-width: $breakpoint-mobile) {
+
+    .auth-container {
+        justify-content: center;
+    }
+
+    .auth-content {
+        width: 100%;
+    }
+
+}

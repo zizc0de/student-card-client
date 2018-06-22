@@ -1,0 +1,12 @@
+@import "../../styles/bases/_variables.scss";
+
+.wrapper {
+	background-color: #FD7314;
+	display: flex;
+	min-height: 100vh;
+}
+
+.wrapper-content {
+	height: 100vh;
+	align-items: center;
+}
