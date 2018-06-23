@@ -1,7 +1,7 @@
 html,
 body{
-	font-family: "proxima-regular";
 	color: $dark_grey;
+	font-family: "proxima-regular";
 }
 
 a {
@@ -38,4 +38,10 @@ hr.primary{
 	float: left;
 	height: 2px;
 	margin-top: 0;
+}
+
+.bg-gradient {
+	background: #FF512F;
+	background: -webkit-linear-gradient(265deg, rgba(255, 143, 0, 0.58), rgba(226, 11, 1, 0.71));
+	background: linear-gradient(265deg, rgba(255, 143, 0, 0.58), rgba(226, 11, 1, 0.71));
 }

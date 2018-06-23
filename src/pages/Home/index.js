@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 
 import StudentCard from 'components/StudentCard';
 
-import './_style.scss';
-
 class Home extends Component {
 	constructor(props) {
 		super(props)
@@ -39,7 +37,7 @@ class Home extends Component {
 		const { students } = this.state;
 
 		return (
-			<div className="wrapper">
+			<div className="bg-gradient">
 				<div className="container">
 					<div className="row">
 						<StudentList lists={students} />

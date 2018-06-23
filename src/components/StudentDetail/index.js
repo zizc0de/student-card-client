@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 class StudentDetail extends Component {
 	render() {
 		return (
-			<div>
+			<div className="bg-gradient">
 				<div className="wrapper-backdrop">
 					<div className="container">
 						<div className="row">

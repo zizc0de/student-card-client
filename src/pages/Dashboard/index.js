@@ -7,8 +7,7 @@ class Dashboard extends Component {
 	render() {
 		return (
 			<Layout>
-				ini dashboard
-				<Link to="/projects">Projects</Link>
+				Dashboard
 			</Layout>
 		);
 	}

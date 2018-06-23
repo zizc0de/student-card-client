@@ -1,0 +1,15 @@
+.table > thead > tr > th {
+	border-bottom: 0;
+	border-top: 0;
+}
+
+.table {
+	thead {
+		&.table-light {
+			background-color: #f5f9fc !important;
+		}
+	}
+	tbody > tr > td {
+		font-size: 15px;
+	}
+}

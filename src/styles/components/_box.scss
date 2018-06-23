@@ -1,0 +1,42 @@
+.box {
+	background-color: #fff;
+	border-radius: 3px;
+	min-height: 80px;
+	padding: 20px;
+	&.box-shadow {
+		box-shadow: 0 5px 16px -10px rgba(0,0,0,0.5);
+	}
+	.box-head {
+		margin-bottom: 20px;
+		margin-left: -20px;
+		margin-right: -20px;
+		padding: 0 20px 10px 20px;
+		.box-head__title {
+			font-size: 18px;
+			font-family: "proxima-semiBold";
+			margin-bottom: 0;
+		}
+		.box-head__subtitle {
+			color: $grey;
+			font-size: 13px;
+			margin-bottom: 0;
+		}
+		.box-head__outbox {
+			box-shadow: 0 5px 16px -10px rgba(0,0,0,0.5);
+			position: absolute;
+			right: 35px;
+			top: -20px;
+		}
+	}
+	.box-body{
+		&.flex {
+			display: flex;
+			flex-direction: column;
+		}
+		.flex-center {
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+		}
+	}
+}
