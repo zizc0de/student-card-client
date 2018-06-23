@@ -1,6 +1,11 @@
 html,
 body{
 	font-family: "proxima-regular";
+	color: $dark_grey;
+}
+
+a:hover {
+	text-decoration: none;
 }
 
 hr.primary{

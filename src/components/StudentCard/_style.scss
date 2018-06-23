@@ -1,0 +1,41 @@
+@import "../../styles/bases/_variables.scss";
+
+.student-card {
+	background-color: #fff;
+	border-radius: 3px;
+	box-shadow: 0 5px 16px -10px rgba(0,0,0,0.5);
+	min-height: 250px;
+	.student-card-body {
+		padding: 20px;
+	}
+	.student-card-footer {
+		background-color: $primary_color;
+		display: flex;
+		flex: 1;
+		align-items: center;
+		min-height: 50px;
+		justify-content: center;
+		a {
+			color: #fff;
+			display: flex;
+			font-family: 'proxima-semiBold';
+			flex: 1;
+			justify-content: center;			
+		}
+	}
+	.student-card__pict {
+		float: left;
+		img {
+			height: 50px;
+		}
+	}
+	.student-card__detail {
+		float: left;
+		margin-left: 15px;
+	}
+	.student-card__desc {
+		color: $grey;
+		height: 150px;
+		overflow: hidden;
+	}
+}
