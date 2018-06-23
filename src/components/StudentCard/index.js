@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import './_style.scss';
-
 class StudentCard extends Component {
 	render() {
 		const { detail } = this.props;

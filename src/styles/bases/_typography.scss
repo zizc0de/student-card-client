@@ -11,3 +11,14 @@
 		font-size: #{$fontSize}px;
 	}	
 }
+
+a.base {
+	color: $dark_grey;
+}
+
+a.to-primary {
+	&:hover,
+	&:focus {
+		color: $primary_color;
+	}
+}

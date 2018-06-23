@@ -12,6 +12,27 @@ a:hover {
 	text-decoration: none;
 }
 
+.material-icons {
+	vertical-align: middle;
+}
+
+.wrapper--full-height {
+	display: flex;
+	flex: 1;
+	height: 100vh;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.wrapper-backdrop {
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 30;
+	background: rgba(0, 0, 0, 0.5);
+}
+
 hr.primary{
 	background-color: $primary_color;
 	float: left;

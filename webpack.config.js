@@ -34,7 +34,7 @@ module.exports = {
 			use: ['style-loader', 'css-loader', 'sass-loader']
 		},
 		{
-			test: /\.(png|jpg|svg|ico)$/,
+			test: /\.(png|jpg|jpeg|svg|ico)$/,
 			loader: 'url-loader?limit=100000'
 		},
 		{

@@ -1,4 +1,5 @@
 import { Home, Dashboard, Login } from 'pages';
+import StudentDetail from 'components/StudentDetail';
 
 const routes = [
 	{
@@ -10,6 +11,12 @@ const routes = [
 		component: Login
 	},
 	{
+		exact: true,
+		path: '/detail/:slug',
+		component: StudentDetail
+	},
+	{
+		exact: true,
 		path: '/',
 		component: Home
 	},
