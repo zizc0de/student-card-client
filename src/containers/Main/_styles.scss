@@ -6,6 +6,7 @@
 	background: linear-gradient(to bottom, #eea849, #f46b45);
 	color: #fff;
 	min-height: 100vh;
+	width: 250px;
 	padding: 20px;
 	position: fixed;
 	bottom: 0;
@@ -26,7 +27,7 @@
 .app-sidebar__title,
 .app-sidebar__brand {
 	font-family: "proxima-semiBold";
-	font-size: 14px;
+	font-size: 13px;
 	letter-spacing: 1px;
 	text-transform: uppercase;
 }
@@ -56,12 +57,15 @@
 		}
 		a {
 			color: rgba(255, 255, 255, 0.8);
+			display: flex;
+			flex: 1;
+			align-items: center;
 			font-size: 13px;
 			letter-spacing: 1px;
 		}
 		i {
 			margin-top: -3px;
-			width: 30px;
+			margin-right: 10px;
 		}
 	}
 }
@@ -69,6 +73,15 @@
 .content-wrapper {
 	padding-top: 60px;
 	padding-bottom: 60px;
+}
+
+.nav-wrapper {
+	display: flex;
+	flex: 1;
+	align-items: center;
+	min-height: 50px;
+	position: fixed;
+	top: 0;
 }
 
 .line-break {

@@ -24,8 +24,8 @@ class Sidebar extends Component {
 				<div className="line-break"></div>
 				<h5 className="app-sidebar__title">Settings</h5>
 				<ul className="app-sidebar__menu">
-					<li>
-						<Link to="/"><i className="material-icons">person_add</i> Admin</Link>
+					<li className={pathname == '/users' ? 'active' : ''}>
+						<Link to="/users"><i className="material-icons">person_add</i> Admin</Link>
 					</li>									
 				</ul>				
 			</div>
