@@ -30,7 +30,7 @@ class StudentCard extends Component {
 					</div>
 				</div>
 				<div className="student-card-footer">
-					<Link to="/">Detail</Link>
+					<Link to={`/detail/${detail.slug}`}>Detail</Link>
 				</div>
 			</div>
 		);

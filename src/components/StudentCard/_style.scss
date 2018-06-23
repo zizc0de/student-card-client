@@ -12,15 +12,19 @@
 		background-color: $primary_color;
 		display: flex;
 		flex: 1;
-		align-items: center;
 		min-height: 50px;
-		justify-content: center;
 		a {
 			color: #fff;
 			display: flex;
 			font-family: 'proxima-semiBold';
 			flex: 1;
-			justify-content: center;			
+			justify-content: center;
+			align-items: center;
+			&:hover,
+			&:focus {
+				background-color: #dd6716;
+				color: #fff;
+			}
 		}
 	}
 	.student-card__pict {

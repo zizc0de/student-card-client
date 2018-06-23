@@ -4,6 +4,10 @@ body{
 	color: $dark_grey;
 }
 
+a {
+	transition: all 0.2s;
+}
+
 a:hover {
 	text-decoration: none;
 }

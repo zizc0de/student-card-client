@@ -14,18 +14,21 @@ class Home extends Component {
 					id: '1',
 					name: 'Muhammad Abdul Aziz',
 					age: '19',
+					slug: 'muhammad-abdul-aziz',
 					bio: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.'
 				},
 				{
 					id: '2',
 					name: 'Roro Kumala',
 					age: '20',
+					slug: 'roro-kumala',
 					bio: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.'
 				},
 				{
 					id: '3',
 					name: 'Hasta Ragil',
 					age: '21',
+					slug: 'hasta-ragil',
 					bio: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.'
 				}							
 			]
