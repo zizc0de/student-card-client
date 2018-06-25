@@ -27,12 +27,10 @@ const routes = [
 		component: Login
 	},
 	{
-		exact: true,
-		path: '/detail/:slug',
+		path: '/student/:id',
 		component: StudentDetail
 	},
 	{
-		exact: true,
 		path: '/',
 		component: Home
 	},

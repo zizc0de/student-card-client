@@ -14,7 +14,7 @@ class StudentCard extends Component {
 								<img src={require('assets/images/user.png')} />
 							</div>
 							<div className="student-card__detail">
-								<p className="mb-0 text-semi-bold">{detail.name}</p>
+								<p className="mb-0 text-semi-bold">{detail.firstname+" "+detail.lastname}</p>
 								<small>{detail.age} years old</small>
 							</div>
 						</div>
@@ -28,7 +28,7 @@ class StudentCard extends Component {
 					</div>
 				</div>
 				<div className="student-card-footer">
-					<Link to={`/detail/${detail.slug}`}>Detail</Link>
+					<Link to={`/student/${detail.id}`}>Detail</Link>
 				</div>
 			</div>
 		);

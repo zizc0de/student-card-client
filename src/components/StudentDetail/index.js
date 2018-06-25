@@ -1,8 +1,35 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import nl2br from 'react-nl2br';
+
+import API from 'api';
 
 class StudentDetail extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			detail: {}
+		}
+	}
+
+	componentDidMount() {
+		const { match: { params }, history } = this.props;
+
+		API.get(`students/${params.id}`)
+		.then((result) => {
+			let data = result.data;
+			this.setState({
+				detail: data.student
+			});
+		})
+		.catch(err => {
+			window.location.href = '/';
+		})
+	}
+
 	render() {
+		const { detail } = this.state;
+
 		return (
 			<div className="bg-gradient">
 				<div className="wrapper-backdrop">
@@ -21,11 +48,10 @@ class StudentDetail extends Component {
 										<div className="student-card-body">
 											<div className="row mb-5">
 												<div className="col-md-8">
-													<h3 className="text-semi-bold mb-0">Muhammad Abdul Aziz</h3>
-													<p>19 years old</p>
-													<h5 className="text-semi-bold mb-0">STMIK Bani Saleh</h5>
-													<p className="mb-0">S.SI, Sistem Informasi</p>
-													<small className="color-grey">2018 - 2022</small>
+													<h3 className="text-semi-bold mb-0">{detail.firstname+" "+detail.lastname}</h3>
+													<p>{detail.age} years old</p>
+													<h5 className="text-semi-bold mb-0">{detail.school}</h5>
+													<p className="color-grey mb-0">{detail.degree+" "+detail.field_of_study}</p>
 												</div>
 												<div className="col-md-4">
 													<div className="student-card__pict-out">
@@ -37,7 +63,7 @@ class StudentDetail extends Component {
 												<div className="row">
 													<div className="col-12">
 														<h5 className="text-semi-bold">Bio</h5>
-														<p className="font-14 mb-0">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+														<p className="font-14 mb-0">{nl2br(detail.bio)}</p>
 													</div>
 												</div>
 											</div>
@@ -54,4 +80,4 @@ class StudentDetail extends Component {
 	}
 }
 
-export default StudentDetail;
+export default withRouter(StudentDetail);
