@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { Helmet } from 'react-helmet';
+
+import { history } from './_helpers';
 
 import routes from './routes';
 
 class App extends Component {
 	render() {
 		return (
-			<Router>
+			<Router history={history}>
 				<Switch>
 					<div>
 						<Helmet>
