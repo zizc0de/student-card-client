@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import { history } from '_helpers';
@@ -11,6 +11,12 @@ import { MainLayout as Layout } from 'containers';
 class StudentForm extends Component {
 	constructor(props) {
 		super(props);
+
+		const { match: { params } } = this.props;
+
+		if (params.id) {
+			this.fetchItem(params.id);
+		}
 
 		this.state = {
 			scope: {
@@ -38,15 +44,48 @@ class StudentForm extends Component {
 		this.setState({scope});
 	}
 
+	fetchItem = (id) => {
+		API.get(`students/${id}`)
+		.then((result) => {
+			let data = result.data.student;
+			let scope = {
+				firstname: data.firstname,
+				lastname: data.lastname,
+				place_of_birth: data.place_of_birth,
+				date_of_birth: data.date_of_birth,
+				school: data.school,
+				degree: data.degree,
+				field_of_study: data.field_of_study,
+				bio: data.bio
+			};
+			this.setState({scope});
+		})
+		.catch(err => {
+			history.push('/students');
+		})		
+	}
+
 	handleSubmit = (event) => {
 		event.preventDefault();
 
-		API.post('students', this.state.scope, {
-			headers: {
-				Authorization: 'Bearer '+localStorage.getItem('student_token')
-			}
-		})
-		.then((response) => {
+		const { match: { params } } = this.props;
+
+		var request;
+		if (params.id) {
+			request = API.put(`students/${params.id}`, this.state.scope, {
+				headers: {
+					Authorization: 'Bearer '+localStorage.getItem('student_token')
+				}
+			});
+		}else{
+			request = API.post('students', this.state.scope, {
+				headers: {
+					Authorization: 'Bearer '+localStorage.getItem('student_token')
+				}
+			});
+		}
+
+		request.then((response) => {
 			let result = response.data;
 			if (typeof result.success !== "undefined" && result.success) {
 				Swal({
@@ -218,4 +257,4 @@ class StudentForm extends Component {
 	}
 }
 
-export default StudentForm;
+export default withRouter(StudentForm);

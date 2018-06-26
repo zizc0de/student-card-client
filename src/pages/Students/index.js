@@ -115,7 +115,7 @@ class Students extends Component {
 											      		</DropdownToggle>
 											      		<DropdownMenu>
 											      			<Link to={`/students/edit/${row.id}`}>
-												      			<DropdownItem>Edit</DropdownItem>
+												      			<DropdownItem style={{ cursor: 'pointer' }}>Edit</DropdownItem>
 												      		</Link>
 											      			<DropdownItem onClick={() => this.handleDelete(row.id)} style={{ cursor: 'pointer' }}>Delete</DropdownItem>
 											      		</DropdownMenu>

@@ -13,6 +13,10 @@ const routes = [
 	{
 		path: '/students/add',
 		component: StudentForm
+	},
+	{
+		path: '/students/edit/:id',
+		component: StudentForm
 	},	
 	{
 		path: '/students',
