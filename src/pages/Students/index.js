@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import Swal from 'sweetalert2';
 
-import { MainLayout as Layout } from 'containers';
-
 import API from 'api';
+
+import { MainLayout as Layout } from 'containers';
 
 class Students extends Component {
 	constructor(props) {
@@ -21,10 +21,10 @@ class Students extends Component {
 	};
 
 	componentDidMount() {
-		this.fetchItem();
+		this.fetchItems();
 	}
 
-	fetchItem = () => {
+	fetchItems = () => {
 		API.get('students')
 		.then((result) => {
 			let data = result.data;
@@ -43,7 +43,7 @@ class Students extends Component {
 		.then((response) => {
 			let result = response.data;
 			if (typeof result.success !== "undefined" && result.success) {
-				this.fetchItem();
+				this.fetchItems();
 				Swal({
 					title: 'Success',
 					text: result.message,
@@ -122,8 +122,7 @@ class Students extends Component {
 											      	</UncontrolledDropdown>
 											      </td>									      
 											    </tr>
-											)
-										    :
+											) :
 										    <tr>
 										    	<td className="text-center" colSpan="6">No data available</td>
 										    </tr>
