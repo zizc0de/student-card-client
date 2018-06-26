@@ -1,10 +1,14 @@
-import { Home, Login, Dashboard, Students, StudentForm, Users, UserForm } from 'pages';
+import { Home, Login, Dashboard, Profile, Students, StudentForm, Users, UserForm } from 'pages';
 import StudentDetail from 'components/StudentDetail';
 
 const routes = [
 	{
 		path: '/dashboard',
 		component: Dashboard
+	},
+	{
+		path: '/profile',
+		component: Profile
 	},
 	{
 		path: '/students/add',

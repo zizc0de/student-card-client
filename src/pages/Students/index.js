@@ -3,8 +3,31 @@ import { Link } from 'react-router-dom';
 
 import { MainLayout as Layout } from 'containers';
 
+import API from 'api';
+
 class Students extends Component {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			students: []
+		}
+	};
+
+	componentDidMount() {
+		API.get('students')
+		.then((result) => {
+			let data = result.data;
+			this.setState({
+				students: data.students
+			});
+			console.log(data.students);
+		})
+	}
+
 	render() {
+		const { students } = this.state;
+
 		return (
 			<Layout>
 				<div className="row">
@@ -14,7 +37,7 @@ class Students extends Component {
 								<h5 className="box-head__title">Student List</h5>
 								<p className="box-head__subtitle">Manage your student list</p>
 								<div className="box-head__outbox">
-									<Link to="/students/add" class="btn btn-light"><i className="material-icons">add</i> Add new student</Link>
+									<Link to="/students/add" className="btn btn-light"><i className="material-icons">add</i> Add new student</Link>
 								</div>
 							</div>
 							<div className="box-body">
@@ -31,36 +54,24 @@ class Students extends Component {
 											</tr>
 										</thead>
 										<tbody>
+										{students.length > 0 ?
+											students.map((row) =>
+											    <tr key={row.id}>
+											      <td>{row.firstname+" "+row.lastname}</td>
+											      <td className="text-center">{row.age}</td>
+											      <td>{row.school}</td>
+											      <td>{row.degree}</td>
+											      <td>{row.field_of_study}</td>
+											      <td className="text-center">
+											      	<i className="material-icons">more_horiz</i>
+											      </td>									      
+											    </tr>
+											)
+										    :
 										    <tr>
-										      <td>Muhammad Abdul Aziz</td>
-										      <td className="text-center">21</td>
-										      <td>STMIK Bani Saleh</td>
-										      <td>S.SI</td>
-										      <td>Sistem Informasi</td>
-										      <td className="text-center">
-										      	<i className="material-icons">more_horiz</i>
-										      </td>									      
+										    	<td className="text-center" colspan="6">No data available</td>
 										    </tr>
-										    <tr>
-										      <td>Muhammad Abdul Aziz</td>
-										      <td className="text-center">21</td>
-										      <td>STMIK Bani Saleh</td>
-										      <td>S.SI</td>
-										      <td>Sistem Informasi</td>
-										      <td className="text-center">
-										      	<i className="material-icons">more_horiz</i>
-										      </td>									      
-										    </tr>
-										    <tr>
-										      <td>Muhammad Abdul Aziz</td>
-										      <td className="text-center">21</td>
-										      <td>STMIK Bani Saleh</td>
-										      <td>S.SI</td>
-										      <td>Sistem Informasi</td>
-										      <td className="text-center">
-										      	<i className="material-icons">more_horiz</i>
-										      </td>
-										    </tr>
+										}
 										</tbody>
 									</table>
 								</div>

@@ -42,8 +42,8 @@ class Sidebar extends Component {
 				<div style={{ position: 'absolute', bottom: 50, width: '100%' }}>
 					<h5 className="app-sidebar__title">Account</h5>
 					<ul className="app-sidebar__menu">
-						<li>
-							<Link to="/"><i className="material-icons">face</i> Profile</Link>
+						<li className={pathname == '/profile' ? 'active' : ''}>
+							<Link to="/profile"><i className="material-icons">face</i> Profile</Link>
 						</li>					
 						<li>
 							<Link to="/" onClick={this.logout}><i className="material-icons">power_settings_new</i> Logout</Link>
