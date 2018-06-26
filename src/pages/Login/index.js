@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { userActions, alertActions } from '../../_actions';
 
+import { history } from '_helpers';
+
 import './_style.scss';
 
 class Login extends Component {
@@ -12,9 +14,11 @@ class Login extends Component {
 			password: '',
 			submitted: false
 		};
+
 		const { dispatch } = this.props;
 		dispatch(alertActions.clear());
-		
+		dispatch(userActions.logout());
+
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -113,10 +117,8 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-	const { loggingIn } = state.authentication;
 	const { alert } = state;
 	return {
-		loggingIn,
 		alert
 	};
 }

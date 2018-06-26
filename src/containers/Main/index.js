@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import { history } from '../../_helpers';
 
 import Sidebar from './Sidebar';
+
 import './_styles.scss';
 
 class Main extends Component {
 	constructor(props) {
 		super(props);
+		
 		this.state = {
 			showMenu: true,
 			toggleClass: 'd-block'
 		};
+
+		const { loggedIn } = this.props;
+		if (!loggedIn) {
+			history.push('/login');
+		}
 	}
 
 	toggleMenu = () => {
@@ -27,6 +37,7 @@ class Main extends Component {
 
 	render() {
 		const sidebarClass = this.state.toggleClass;
+		const { loggedIn } = this.props;
 
 		return (
 			<div className="container-fluid" style={{ backgroundColor: '#f3f5f7', minHeight: '100vh' }}>
@@ -52,4 +63,11 @@ class Main extends Component {
 	}
 }
 
-export default Main;
+function mapStateToProps(state) {
+	const { loggedIn } = state.authentication;
+	return {
+		loggedIn
+	};
+}
+
+export default connect(mapStateToProps)(Main);
