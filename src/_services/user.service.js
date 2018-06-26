@@ -1,4 +1,5 @@
 import { saveState } from '../_helpers/state.loader';
+import axios from 'axios';
 import API from 'api';
 
 function login(username, password) {
@@ -7,6 +8,7 @@ function login(username, password) {
 		let result = response.data;
 		if (result.success && result.token) {
 			localStorage.setItem('student_token', result.token);
+      		axios.defaults.headers.common['Authorization'] = `Bearer ${result.token}`;
 			saveState({
 				authentication: {
 					loggedIn: true

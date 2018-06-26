@@ -21,7 +21,6 @@ class Students extends Component {
 			this.setState({
 				students: data.students
 			});
-			console.log(data.students);
 		})
 	}
 
@@ -69,7 +68,7 @@ class Students extends Component {
 											)
 										    :
 										    <tr>
-										    	<td className="text-center" colspan="6">No data available</td>
+										    	<td className="text-center" colSpan="6">No data available</td>
 										    </tr>
 										}
 										</tbody>
