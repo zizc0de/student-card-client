@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import Swal from 'sweetalert2';
+
 import { MainLayout as Layout } from 'containers';
 
 import API from 'api';
@@ -12,16 +15,62 @@ class Students extends Component {
 		this.state = {
 			students: []
 		}
+
+		this.handleDelete = this.handleDelete.bind(this);
+		this.removeItem = this.removeItem.bind(this);
 	};
 
 	componentDidMount() {
+		this.fetchItem();
+	}
+
+	fetchItem = () => {
 		API.get('students')
 		.then((result) => {
 			let data = result.data;
 			this.setState({
 				students: data.students
 			});
+		});		
+	}
+
+	removeItem = (id) => {
+		API.delete(`students/${id}`, {
+			headers: {
+				Authorization: 'Bearer '+localStorage.getItem('student_token')
+			}			
 		})
+		.then((response) => {
+			let result = response.data;
+			if (typeof result.success !== "undefined" && result.success) {
+				this.fetchItem();
+				Swal({
+					title: 'Success',
+					text: result.message,
+					type: 'success',
+					showConfirmButton: false,
+					timer: 2000
+				});
+			}
+		})
+		.catch((err) => {
+			console.log(err);
+			Swal('Oops', 'Error!', 'error');
+		})
+	}
+
+	handleDelete = (id) => {
+		Swal({
+		  title: 'Are you sure?',
+		  text: "You won't be able to revert this!",
+		  type: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+		  if (result.value) {
+		  	this.removeItem(id);
+		  }
+		});
 	}
 
 	render() {
@@ -40,16 +89,15 @@ class Students extends Component {
 								</div>
 							</div>
 							<div className="box-body">
-								<div className="table-responsive">
+								<div className="">
 									<table className="table">
 										<thead className="table-light">
 											<tr>
-										      <th scope="col">Name</th>
-										      <th scope="col" className="text-center">Age</th>
-										      <th scope="col">School</th>
-										      <th scope="col">Degree</th>
-										      <th scope="col">Field of study</th>
-										      <th scope="col"></th>
+										      <th scope="col" width="75">Name</th>
+										      <th scope="col" width="75">School</th>
+										      <th scope="col" width="75">Degree</th>
+										      <th scope="col" width="75">Field of study</th>
+										      <th scope="col" width="75"></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -57,12 +105,21 @@ class Students extends Component {
 											students.map((row) =>
 											    <tr key={row.id}>
 											      <td>{row.firstname+" "+row.lastname}</td>
-											      <td className="text-center">{row.age}</td>
 											      <td>{row.school}</td>
 											      <td>{row.degree}</td>
 											      <td>{row.field_of_study}</td>
 											      <td className="text-center">
-											      	<i className="material-icons">more_horiz</i>
+											      	<UncontrolledDropdown>
+											      		<DropdownToggle tag="a" className="base to-primary" style={{ cursor: 'pointer' }}>
+											      			<i className="material-icons">more_horiz</i>
+											      		</DropdownToggle>
+											      		<DropdownMenu>
+											      			<Link to={`/students/edit/${row.id}`}>
+												      			<DropdownItem>Edit</DropdownItem>
+												      		</Link>
+											      			<DropdownItem onClick={() => this.handleDelete(row.id)} style={{ cursor: 'pointer' }}>Delete</DropdownItem>
+											      		</DropdownMenu>
+											      	</UncontrolledDropdown>
 											      </td>									      
 											    </tr>
 											)
