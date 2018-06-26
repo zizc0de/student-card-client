@@ -14,6 +14,11 @@ function login(username, password) {
 	});
 }
 
+function logout() {
+	localStorage.removeItem('student_token');
+}
+
 export const userService = {
-	login
+	login,
+	logout
 }

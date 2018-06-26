@@ -30,6 +30,13 @@ function login(username, password) {
 	function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
 }
 
+function logout() {
+	userService.logout();
+	history.push('/login');
+	return { type: userConstants.LOGOUT }
+}
+
 export const userActions = {
-	login
+	login,
+	logout
 };

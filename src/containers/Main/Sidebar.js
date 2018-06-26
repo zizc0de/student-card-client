@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { userActions } from '../../_actions';
 
 class Sidebar extends Component {
 	constructor(props) {
-		super(props)
+		super(props);
+		this.logout = this.logout.bind(this);
+	}
+
+	logout = (event) => {
+		event.preventDefault();
+
+		const { dispatch } = this.props;
+		dispatch(userActions.logout);
 	}
 
 	render() {
@@ -27,10 +38,21 @@ class Sidebar extends Component {
 					<li className={pathname == '/users' ? 'active' : ''}>
 						<Link to="/users"><i className="material-icons">person_add</i> Admin</Link>
 					</li>									
-				</ul>				
+				</ul>
+				<div style={{ position: 'absolute', bottom: 50, width: '100%' }}>
+					<h5 className="app-sidebar__title">Account</h5>
+					<ul className="app-sidebar__menu">
+						<li>
+							<Link to="/"><i className="material-icons">face</i> Profile</Link>
+						</li>					
+						<li>
+							<Link to="/" onClick={this.logout}><i className="material-icons">power_settings_new</i> Logout</Link>
+						</li>
+					</ul>
+				</div>
 			</div>
 		);
 	}
 }
 
-export default withRouter(Sidebar);
+export default connect()(withRouter(Sidebar));
