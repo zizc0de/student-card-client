@@ -3,7 +3,6 @@ import { Link, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import { history } from '_helpers';
-
 import API from 'api';
 
 import { MainLayout as Layout } from 'containers';
@@ -13,9 +12,11 @@ class StudentForm extends Component {
 		super(props);
 
 		const { match: { params } } = this.props;
+		let mode = "create";
 
 		if (params.id) {
 			this.fetchItem(params.id);
+			mode = "update";
 		}
 
 		this.state = {
@@ -30,7 +31,7 @@ class StudentForm extends Component {
 				bio: ''
 			},
 			errors: {},
-			submitted: false
+			mode: mode
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -123,7 +124,7 @@ class StudentForm extends Component {
 
 	render() {
 		const { firstname, lastname, place_of_birth, date_of_birth, school, degree, field_of_study, bio } = this.state.scope;
-		const { errors } = this.state;
+		const { errors, mode } = this.state;
 
 		return (
 			<Layout>
@@ -131,7 +132,7 @@ class StudentForm extends Component {
 					<div className="col-12">
 						<div className="box box-shadow">
 							<div className="box-head">
-								<h5 className="box-head__title">Add Student</h5>
+								<h5 className="box-head__title">{mode == "create" ? "Add" : "Edit"} Student</h5>
 							</div>
 							<div className="box-body">
 								<form onSubmit={this.handleSubmit}>
