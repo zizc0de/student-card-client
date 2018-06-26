@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 const moment = require('moment');
 
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import Swal from 'sweetalert2';
 
 import API from 'api';
 
@@ -15,6 +16,9 @@ class Users extends Component {
 		this.state = {
 			users: []
 		}
+
+		this.handleDelete = this.handleDelete.bind(this);
+		this.removeItem = this.removeItem.bind(this);		
 	};
 
 	componentDidMount() {
@@ -42,6 +46,45 @@ class Users extends Component {
 				users: data.users
 			});
 		});			
+	}
+
+	removeItem = (id) => {
+		API.delete(`users/${id}`, {
+			headers: {
+				Authorization: 'Bearer '+localStorage.getItem('student_token')
+			}			
+		})
+		.then((response) => {
+			let result = response.data;
+			if (typeof result.success !== "undefined" && result.success) {
+				this.fetchItems();
+				Swal({
+					title: 'Success',
+					text: result.message,
+					type: 'success',
+					showConfirmButton: false,
+					timer: 2000
+				});
+			}
+		})
+		.catch((err) => {
+			console.log(err);
+			Swal('Oops', 'Error!', 'error');
+		})
+	}
+
+	handleDelete = (id) => {
+		Swal({
+		  title: 'Are you sure?',
+		  text: "You won't be able to revert this!",
+		  type: 'warning',
+		  showCancelButton: true,
+		  confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+		  if (result.value) {
+		  	this.removeItem(id);
+		  }
+		});
 	}
 
 	render() {
@@ -88,7 +131,7 @@ class Users extends Component {
 											      			<Link to={`/users/edit/${row.id}`}>
 												      			<DropdownItem style={{ cursor: 'pointer' }}>Edit</DropdownItem>
 												      		</Link>
-											      			<DropdownItem style={{ cursor: 'pointer' }}>Delete</DropdownItem>
+											      			<DropdownItem onClick={() => this.handleDelete(row.id)} style={{ cursor: 'pointer' }}>Delete</DropdownItem>
 											      		</DropdownMenu>
 											      	</UncontrolledDropdown>											      	
 											      </td>									      
