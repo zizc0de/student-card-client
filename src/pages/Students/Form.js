@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
+const moment = require('moment');
+
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
+
 import Swal from 'sweetalert2';
 
 import { history } from '_helpers';
@@ -34,6 +39,7 @@ class StudentForm extends Component {
 			mode: mode
 		}
 
+		this.handleDayChange = this.handleDayChange.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -43,6 +49,13 @@ class StudentForm extends Component {
 		let scope = {...this.state.scope};
 		scope[name] = value;
 		this.setState({scope});
+	}
+
+	handleDayChange = (day) => {
+		let date = moment(day).format('YYYY-MM-DD');
+		let scope = {...this.state.scope};
+		scope['date_of_birth'] = date;
+		this.setState({ scope });
 	}
 
 	fetchItem = (id) => {
@@ -180,12 +193,11 @@ class StudentForm extends Component {
 										<div className="col-md-6">
 											<div className="form-group">
 												<label>Date of Birth</label>
-												<input
-												type="text"
-												name="date_of_birth"
-												className="form-control"
+												<DayPickerInput
+												inputProps={{ className: 'form-control' }}
+												onDayChange={this.handleDayChange}
 												value={date_of_birth}
-												onChange={this.handleChange}
+												placeholder={date_of_birth}
 												/>
 												{errors.date_of_birth && !date_of_birth && <p className="text-danger">{errors.date_of_birth.message}</p>}
 											</div>
