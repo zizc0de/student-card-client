@@ -25,11 +25,15 @@ const routes = [
 	{
 		path: '/users/add',
 		component: UserForm
-	},	
+	},
+	{
+		path: '/users/edit/:id',
+		component: UserForm
+	},
 	{
 		path: '/users',
 		component: Users
-	},	
+	},
 	{
 		path: '/login',
 		component: Login

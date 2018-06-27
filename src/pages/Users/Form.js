@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import { history } from '_helpers';
@@ -11,6 +11,15 @@ class UserForm extends Component {
 	constructor(props) {
 		super(props);
 
+		const { match: { params } } = this.props;
+		let mode = "create";
+		let isOpen = false;
+
+		if (params.id) {
+			this.fetchItem(params.id);
+			mode = "update";
+		}
+
 		this.state = {
 			scope: {
 				username: '',
@@ -19,11 +28,32 @@ class UserForm extends Component {
 				role: 'Admin'
 			},
 			errors: {},
-			mode: 'create'
+			mode: mode,
+			isOpen: isOpen
 		}
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	fetchItem = (id) => {
+		API.get(`users/${id}`, {
+			headers: {
+				Authorization: 'Bearer '+localStorage.getItem('student_token')				
+			}			
+		})
+		.then((result) => {
+			let data = result.data.user;
+			let scope = {
+				username: data.username,
+				fullname: data.fullname,
+				role: data.role
+			};
+			this.setState({scope});
+		})
+		.catch(err => {
+			history.push('/users');
+		})		
 	}
 
 	handleChange = (event) => {
@@ -35,12 +65,34 @@ class UserForm extends Component {
 
 	handleSubmit = (event) => {
 		event.preventDefault();
-		API.post('users', this.state.scope, {
-			headers: {
-				Authorization: 'Bearer '+localStorage.getItem('student_token')
-			}			
-		})
-		.then((response) => {
+
+		const { match: { params } } = this.props;
+		const { username, fullname, role, password } = this.state.scope;
+
+		let request;
+		if (params.id) {
+			let data = {
+				username: username,
+				fullname: fullname,
+				role: role
+			}
+			if (password) {
+				data['password'] = password;
+			}
+			request = API.put(`users/${params.id}`, data, {
+				headers: {
+					Authorization: 'Bearer '+localStorage.getItem('student_token')
+				}			
+			});			
+		}else{
+			request = API.post('users', this.state.scope, {
+				headers: {
+					Authorization: 'Bearer '+localStorage.getItem('student_token')
+				}			
+			});
+		}
+
+		request.then((response) => {
 			let result = response.data;
 			if (typeof result.success !== "undefined" && result.success) {
 				Swal({
@@ -66,7 +118,6 @@ class UserForm extends Component {
 							message: error.msg
 						}
 					});
-					console.log(obj);					
 					this.setState({
 						errors: obj
 					});
@@ -87,7 +138,7 @@ class UserForm extends Component {
 					<div className="col-12">
 						<div className="box box-shadow">
 							<div className="box-head">
-								<h5 className="box-head__title">Add User</h5>
+								<h5 className="box-head__title">{mode == "create" ? "Add" : "Edit"} User</h5>								
 							</div>
 							<div className="box-body">
 								<form onSubmit={this.handleSubmit}>
@@ -118,7 +169,7 @@ class UserForm extends Component {
 										</div>
 										<div className="col-md-6">
 											<div className="form-group">
-												<label>Password</label>
+												<label>Password {mode == "update" && <small className="text-info">*please empty it if you don't want to change password</small> }</label>
 												<input
 												type="password"
 												name="password"
@@ -139,7 +190,7 @@ class UserForm extends Component {
 										</select>
 									</div>
 									<div className="form-group mt-5 mb-0 text-right">
-										<button type="submit" class="btn btn-base mr-2">Save</button>
+										<button type="submit" className="btn btn-base mr-2">Save</button>
 										<Link to="/users" className="btn btn-secondary">Cancel</Link>
 									</div>
 								</form>
@@ -152,4 +203,4 @@ class UserForm extends Component {
 	}
 }
 
-export default UserForm;
+export default withRouter(UserForm);
